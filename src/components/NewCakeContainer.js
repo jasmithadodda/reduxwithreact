@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { buyCake } from "../redux";
+import { buyCake, buyIcecream } from "../redux";
 
 function NewCakeContainer(props) {
   const [number, setNumber] = useState(1);
+  const [num, setNum] = useState(1);
 
   return (
     <div>
@@ -20,19 +21,34 @@ function NewCakeContainer(props) {
       >
         buy {number} cakes
       </button>
-    </div>
+    <h2> num of icecreams are-{props.numIcreams}</h2>
+    <input
+      type="text"
+      value={num}
+      onChange={(e) => setNum(e.target.value)}
+    />
+    <button
+      onClick={() => {
+        props.buyIcecream(num);
+      }}
+    >
+      buy {num} icecreams
+    </button>
+  </div>
   );
 }
 
 const mapStateToProps = (state) => {
   return {
     numCakes: state.cake.numCakes,
+    numIcreams : state.iceCream.numIcreams
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    buyCake: num => dispatch(buyCake(num)),
+    buyCake: number => dispatch(buyCake(number)),
+    buyIcecream: num => dispatch(buyIcecream(num))
   };
 };
 
